@@ -1,0 +1,49 @@
+<launch>
+
+  <!-- Parameters possible to change-->
+    <arg name="sensor1" default="010927245347" /><!-- here you can change 1@0 by the serial number -->
+    <arg name="sensor2" default="010927245347" /><!-- here you can change 1@0 by the serial number -->
+ 
+
+
+  <!-- Default parameters-->
+    <arg name="base_name2" default="kinect2" />
+    <arg name="base_name1" default="kinect1" />
+    <arg name="reg_method" default="cpu" />
+    <arg name="depth_method" default="opengl" />
+
+
+
+
+
+ <!-- Putting the time back to real time-->
+    <rosparam>
+       /use_sim_time : false
+    </rosparam>
+
+<!-- Openning Rviz for visualization-->
+<node name="rviz" pkg="rviz" type="rviz"/>
+
+  <!-- Launching first kinect-->
+    <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch">
+        <arg name="sensor" value="$(arg sensor1)" />
+        <arg name="base_name2" value="$(arg base_name2)" />
+      
+        <arg name="reg_method" value="$(arg reg_method)" />
+        <arg name="depth_method" value="$(arg depth_method)" />
+
+     </include>
+
+    <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch">
+        <arg name="sensor" value="$(arg sensor2)" />
+        <arg name="base_name1" value="$(arg base_name1)" />
+      
+        <arg name="reg_method" value="$(arg reg_method)" />
+        <arg name="depth_method" value="$(arg depth_method)" />
+
+     </include>
+
+ 
+
+
+  </launch>
